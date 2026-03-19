@@ -27,8 +27,13 @@ const config: CapacitorConfig = {
       androidScaleType: 'CENTER_CROP',
       showSpinner: false,
     },
+    SystemBars: {
+      insetsHandling: 'disable'
+    },
+    Keyboard: {
+      resizeOnFullScreen: false
+    },
     EdgeToEdgeSupport: {
-      // 상태바와 네비게이션바 투명하게
       statusBarStyle: 'LIGHT',
       navigationBarStyle: 'LIGHT',
       statusBarBackgroundColor: '#00000000',
