@@ -2,4 +2,8 @@
   <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
     <item name="android:windowOptOutEdgeToEdgeEnforcement">true</item>
   </style>
+
+  <style name="AppTheme.NoActionBar" parent="AppTheme">
+    <!-- AppTheme을 상속받아 opt-out 적용 -->
+  </style>
 </resources>
