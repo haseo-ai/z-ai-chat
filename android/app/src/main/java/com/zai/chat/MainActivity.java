@@ -5,9 +5,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.WindowInsets;
 import android.view.WindowInsetsController;
+import android.view.Window;
 import androidx.core.view.WindowCompat;
-import androidx.core.view.WindowInsetsCompat;
-import androidx.core.graphics.Insets;
 
 import com.getcapacitor.BridgeActivity;
 
@@ -15,6 +14,9 @@ public class MainActivity extends BridgeActivity {
     
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        // 타이틀 바 제거
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        
         // Edge-to-Edge 설정 (전체화면)
         setupFullscreen();
         
