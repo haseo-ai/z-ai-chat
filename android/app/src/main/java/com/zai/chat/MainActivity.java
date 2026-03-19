@@ -4,6 +4,8 @@ import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.view.WindowInsets;
+import android.view.ViewGroup;
+import android.webkit.WebView;
 import androidx.core.view.WindowCompat;
 
 import com.getcapacitor.BridgeActivity;
@@ -13,7 +15,7 @@ public class MainActivity extends BridgeActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         // 안드로이드 버전별 Edge-to-Edge 처리
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.VANILLA_ICE_CREAM) {
+        if (Build.VERSION.SDK_INT >= 35) {
             // Android 15+ (API 35): Edge-to-Edge 활성화 + 패딩 처리
             WindowCompat.setDecorFitsSystemWindows(getWindow(), false);
         } else {
@@ -24,7 +26,7 @@ public class MainActivity extends BridgeActivity {
         super.onCreate(savedInstanceState);
         
         // Android 15+에서만 WindowInsets 패딩 처리
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.VANILLA_ICE_CREAM) {
+        if (Build.VERSION.SDK_INT >= 35) {
             setupWindowInsets();
         }
     }
@@ -48,14 +50,30 @@ public class MainActivity extends BridgeActivity {
                     imeBottom = insets.getInsets(WindowInsets.Type.ime()).bottom;
                 }
                 
-                // Capacitor WebView의 부모 컨테이너에 패딩 적용
-                View appView = getBridge().getAppView();
-                if (appView != null) {
-                    appView.setPadding(left, top, right, Math.max(bottom, imeBottom));
+                // WebView 찾아서 패딩 적용
+                WebView webView = findWebView(rootView);
+                if (webView != null) {
+                    webView.setPadding(left, top, right, Math.max(bottom, imeBottom));
                 }
                 
                 return insets;
             }
         });
+    }
+    
+    private WebView findWebView(View view) {
+        if (view instanceof WebView) {
+            return (WebView) view;
+        }
+        if (view instanceof ViewGroup) {
+            ViewGroup group = (ViewGroup) view;
+            for (int i = 0; i < group.getChildCount(); i++) {
+                WebView found = findWebView(group.getChildAt(i));
+                if (found != null) {
+                    return found;
+                }
+            }
+        }
+        return null;
     }
 }
