@@ -1,10 +1,14 @@
-# Z AI Chat
+# Z.AI WebView
 
 [한국어](README.md) | [English](README_EN.md) | [中文](README_ZH.md)
 
 ---
 
-chat.z.ai를 안드로이드 앱으로 실행하는 Capacitor 웹뷰 앱입니다.
+> ⚠️ **비공식 프로젝트**: 이 앱은 chat.z.ai와 아무런 공식적인 관계가 없습니다.
+
+chat.z.ai를 안드로이드 앱으로 실행하는 Capacitor 웹뷰 앱입니다. PWA 설치가 지원되지 않는 Android 12 이하 기기에서 독립 앱처럼 사용할 수 있습니다.
+
+**🌐 배포 페이지**: https://haseo-ai.github.io/z-ai-chat
 
 ## 📱 프로젝트 정보
 
@@ -150,3 +154,58 @@ MIT License
 - [chat.z.ai](https://chat.z.ai)
 - [Capacitor 공식 문서](https://capacitorjs.com/docs)
 - [Next.js 공식 문서](https://nextjs.org/docs)
+
+---
+
+## 🌐 GitHub Pages 설정
+
+### 1. GitHub Pages 활성화
+
+1. 저장소 Settings → Pages
+2. Source: "Deploy from a branch"
+3. Branch: `main` 선택
+4. Folder: `/docs` 선택
+5. Save
+
+### 2. APK 배포 방법
+
+```bash
+# 1. APK 빌드 (로컬)
+bun run build && bunx cap sync android
+cd android && ./gradlew assembleDebug
+
+# 2. APK 파일명 변경
+cp app/build/outputs/apk/debug/app-debug.apk ../releases/z-ai-chat-v1.0.0.apk
+
+# 3. Git 태그 및 릴리즈 생성
+git tag v1.0.0
+git push origin v1.0.0
+
+# 4. GitHub Release 생성
+#    - Releases → Draft a new release
+#    - Tag: v1.0.0
+#    - Title: Z.AI WebView v1.0.0
+#    - Attach: releases/z-ai-chat-v1.0.0.apk
+```
+
+### 3. 다운로드 링크
+
+GitHub Release APK 직접 링크 형식:
+```
+https://github.com/haseo-ai/z-ai-chat/releases/download/v1.0.0/z-ai-chat.apk
+```
+
+최신 버전 링크:
+```
+https://github.com/haseo-ai/z-ai-chat/releases/latest
+```
+
+---
+
+## ⚖️ 면책 조항
+
+- 이 앱은 **개인 개발자**가 필요에 의해 제작한 비공식 프로젝트입니다.
+- chat.z.ai 서비스와 **어떤 공식적인 관계도 없습니다**.
+- 모든 데이터 처리는 chat.z.ai 서버에서 이루어지며, 개발자는 데이터를 수집하지 않습니다.
+- 서비스 변경, 중단 등에 대한 책임은 사용자 본인에게 있습니다.
+- 이 프로젝트는 언제든지 중단되거나 변경될 수 있습니다.

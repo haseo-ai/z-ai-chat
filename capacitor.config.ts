@@ -31,7 +31,9 @@ const config: CapacitorConfig = {
       insetsHandling: 'disable'
     },
     Keyboard: {
-      resizeOnFullScreen: false
+      resize: "body",
+      resizeOnFullScreen: true,
+      scrollToInput: true
     },
     EdgeToEdgeSupport: {
       statusBarStyle: 'LIGHT',
