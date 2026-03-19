@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='utf-8'?>
 <resources>
-    <string name="app_name">Z AI Chat</string>
-    <string name="title_activity_main">Z AI Chat</string>
+    <string name="app_name">Z.AI</string>
+    <string name="title_activity_main">Z.AI</string>
     <string name="package_name">com.zai.chat</string>
     <string name="custom_url_scheme">com.zai.chat</string>
 </resources>

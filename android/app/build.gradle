@@ -22,6 +22,14 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    
+    // APK 이름 변경
+    applicationVariants.all { variant ->
+        variant.outputs.all { output ->
+            def buildType = variant.buildType.name
+            outputFileName = "z-ai-chat-${buildType}.apk"
+        }
+    }
 }
 
 repositories {
