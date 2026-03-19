@@ -1,6 +1,5 @@
 package com.zai.chat;
 
-import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.view.WindowInsets;
@@ -19,7 +18,7 @@ public class MainActivity extends BridgeActivity {
         
         super.onCreate(savedInstanceState);
         
-        // 상태바/네비게이션바 높이만큼 패딩 적용
+        // 상태바/네비게이션바 높이의 2배만큼 패딩 적용
         applySystemBarPadding();
     }
     
@@ -30,13 +29,13 @@ public class MainActivity extends BridgeActivity {
         rootView.setOnApplyWindowInsetsListener(new View.OnApplyWindowInsetsListener() {
             @Override
             public WindowInsets onApplyWindowInsets(View v, WindowInsets insets) {
-                // 상태바 높이
-                int statusBarHeight = insets.getSystemWindowInsetTop();
-                // 네비게이션바 높이
-                int navigationBarHeight = insets.getSystemWindowInsetBottom();
-                // 좌우 인셋 (노치 등)
-                int left = insets.getSystemWindowInsetLeft();
-                int right = insets.getSystemWindowInsetRight();
+                // 상태바 높이의 2배
+                int statusBarHeight = insets.getSystemWindowInsetTop() * 2;
+                // 네비게이션바 높이의 2배
+                int navigationBarHeight = insets.getSystemWindowInsetBottom() * 2;
+                // 좌우 인셋의 2배 (노치 등)
+                int left = insets.getSystemWindowInsetLeft() * 2;
+                int right = insets.getSystemWindowInsetRight() * 2;
                 
                 // WebView 찾아서 패딩 적용
                 WebView webView = findWebView(rootView);
