@@ -15,15 +15,15 @@ public class MainActivity extends BridgeActivity {
         
         super.onCreate(savedInstanceState);
         
-        // contentView에 30px 패딩 적용
+        // contentView에 40px 패딩 적용
         applyPadding();
     }
     
     private void applyPadding() {
         View contentView = findViewById(android.R.id.content);
         if (contentView != null) {
-            // 30dp로 패딩 적용
-            int paddingPx = (int) (30 * getResources().getDisplayMetrics().density);
+            // 40dp로 패딩 적용
+            int paddingPx = (int) (40 * getResources().getDisplayMetrics().density);
             contentView.setPadding(paddingPx, paddingPx, paddingPx, paddingPx);
         }
     }
