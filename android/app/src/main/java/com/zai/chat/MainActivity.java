@@ -3,13 +3,17 @@ package com.zai.chat;
 import android.os.Bundle;
 import android.view.View;
 import android.view.WindowInsets;
-import android.view.ViewGroup;
-import android.webkit.WebView;
+import android.widget.FrameLayout;
 import androidx.core.view.WindowCompat;
+import androidx.core.view.ViewCompat;
+import androidx.core.graphics.Insets;
+import androidx.core.view.WindowInsetsCompat;
 
 import com.getcapacitor.BridgeActivity;
 
 public class MainActivity extends BridgeActivity {
+    
+    private View contentView;
     
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -18,49 +22,26 @@ public class MainActivity extends BridgeActivity {
         
         super.onCreate(savedInstanceState);
         
-        // 상태바/네비게이션바 높이의 2배만큼 패딩 적용
+        // 시스템 바 높이만큼 패딩 적용
         applySystemBarPadding();
     }
     
     private void applySystemBarPadding() {
-        View rootView = findViewById(android.R.id.content);
-        if (rootView == null) return;
+        contentView = findViewById(android.R.id.content);
+        if (contentView == null) return;
         
-        rootView.setOnApplyWindowInsetsListener(new View.OnApplyWindowInsetsListener() {
-            @Override
-            public WindowInsets onApplyWindowInsets(View v, WindowInsets insets) {
-                // 상태바 높이의 2배
-                int statusBarHeight = insets.getSystemWindowInsetTop() * 2;
-                // 네비게이션바 높이의 2배
-                int navigationBarHeight = insets.getSystemWindowInsetBottom() * 2;
-                // 좌우 인셋의 2배 (노치 등)
-                int left = insets.getSystemWindowInsetLeft() * 2;
-                int right = insets.getSystemWindowInsetRight() * 2;
-                
-                // WebView 찾아서 패딩 적용
-                WebView webView = findWebView(rootView);
-                if (webView != null) {
-                    webView.setPadding(left, statusBarHeight, right, navigationBarHeight);
-                }
-                
-                return insets;
-            }
+        ViewCompat.setOnApplyWindowInsetsListener(contentView, (v, insets) -> {
+            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
+            
+            // 시스템 바 높이의 2배만큼 패딩 적용
+            int topPadding = systemBars.top * 2;
+            int bottomPadding = systemBars.bottom * 2;
+            int leftPadding = systemBars.left * 2;
+            int rightPadding = systemBars.right * 2;
+            
+            v.setPadding(leftPadding, topPadding, rightPadding, bottomPadding);
+            
+            return insets;
         });
-    }
-    
-    private WebView findWebView(View view) {
-        if (view instanceof WebView) {
-            return (WebView) view;
-        }
-        if (view instanceof ViewGroup) {
-            ViewGroup group = (ViewGroup) view;
-            for (int i = 0; i < group.getChildCount(); i++) {
-                WebView found = findWebView(group.getChildAt(i));
-                if (found != null) {
-                    return found;
-                }
-            }
-        }
-        return null;
     }
 }
